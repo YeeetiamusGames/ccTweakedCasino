@@ -9,18 +9,18 @@ TOS = TOS or {}
 
 local DEFAULT_RULES = {
     {"No breaking or modifying", "Do not break, place, replace or change any block in the casino. Machines, walls, floors and decor stay exactly as built."},
-    {"No griefing", "No TNT, lava, fire, water or lag machines. Do not trap or block players, doors or villagers, and do not harm players, villagers or animals."},
+    {"No griefing", "No TNT, lava, fire, water or lag machines. Do not trap or block players, doors, or villagers, and do not harm players, villagers or animals."},
     {"No stealing", "Do not take items, chips, cards or chests that are not yours. Each card belongs to one player."},
     {"No cheating", "No hacked clients, x-ray, auto-clickers, bots, duping or bug abuse. Report bugs to staff instead of using them."},
-    {"Hands off the tech", "Do not open, break or reprogram the computers, monitors, modems, disk drives or redstone links."},
+    {"Hands off the tech", "Do not open, break or reprogram the computers, monitors, modems, disk drives, or redstone links."},
     {"Respect others", "No harassment, hate, spam or begging. Do not scam players or lure them away from the casino to rob them."},
     {"Play at your own risk", "All games are chance. Chips have no guaranteed value and staff decisions on payouts are final."},
-    {"Consequences", "Breaking these rules can get you kicked, banned and rolled back, and your chips and card removed."},
-    {"Your data", "This gate logs your username and the time you agree. By agreeing you accept every rule above."},
+    {"Consequences", "Breaking these rules can get you kicked, banned from the casino, and your chips and card removed."},
+    {"Your data", "This gate logs your username and the time you agree. By agreeing, you accept every rule above."},
 }
 
 local DEFAULTS = {
-    casinoName = "THE CASINO",
+    casinoName = "Casino Fortuna",
     tosVersion = 1,        -- raise this number to make everyone agree again
     acceptDays = 30,       -- how long an agreement lasts (0 = forever)
     entryRange = 6,        -- blocks around the detector counted as "at the entrance"
@@ -242,8 +242,8 @@ end
 local function main()
     local cfg = TOS.loadConfig("/casinoSettings.lua")
     local mon = peripheral.find("monitor")
-    local pd = peripheral.find("playerDetector")
-    local chat = peripheral.find("chatBox")
+    local pd = peripheral.find("player_detector")
+    local chat = peripheral.find("chat_box")
     local spk = peripheral.find("speaker")
     local missing = {}
     if not mon then missing[#missing + 1] = "advanced monitor" end
