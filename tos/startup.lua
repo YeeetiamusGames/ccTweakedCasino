@@ -8,13 +8,13 @@
 TOS = TOS or {}
 
 local DEFAULT_RULES = {
-    {"No breaking or modifying", "Do not break, place, replace or change any block in the casino. Machines, walls, floors and decor stay exactly as built."},
-    {"No griefing", "No TNT, lava, fire, water or lag machines. Do not trap or block players, doors, or villagers, and do not harm players, villagers or animals."},
-    {"No stealing", "Do not take items, chips, cards or chests that are not yours. Each card belongs to one player."},
-    {"No cheating", "No hacked clients, x-ray, auto-clickers, bots, duping or bug abuse. Report bugs to staff instead of using them."},
-    {"Hands off the tech", "Do not open, break or reprogram the computers, monitors, modems, disk drives, or redstone links."},
-    {"Respect others", "No harassment, hate, spam or begging. Do not scam players or lure them away from the casino to rob them."},
-    {"Play at your own risk", "All games are chance. Chips have no guaranteed value and staff decisions on payouts are final."},
+    {"No breaking or modifying", "Do not break, place, replace, or change any block in the casino. Machines, walls, floors and decor stay exactly as built."},
+    {"No griefing", "No TNT, lava, fire, water, or lag machines. Do not trap or block players, doors, or villagers, and do not harm players, villagers or animals."},
+    {"No stealing", "Do not take items, chips, cards, or chests that are not yours. Each card belongs to one player."},
+    {"No cheating", "No hacked clients, x-ray, auto-clickers, bots, duping, or bug abuse. Report bugs to staff instead of using them."},
+    {"Hands off the tech", "Do not open, break, or reprogram the computers, monitors, modems, disk drives, or redstone links."},
+    {"Respect others", "No harassment, hate, spam, or begging. Do not scam players or lure them away from the casino to rob them."},
+    {"Play at your own risk", "All games are chance. Chips have no guaranteed value, and casino staff decisions on payouts are final."},
     {"Consequences", "Breaking these rules can get you kicked, banned from the casino, and your chips and card removed."},
     {"Your data", "This gate logs your username and the time you agree. By agreeing, you accept every rule above."},
 }
@@ -23,16 +23,16 @@ local DEFAULTS = {
     casinoName = "Casino Fortuna",
     tosVersion = 1,        -- raise this number to make everyone agree again
     acceptDays = 30,       -- how long an agreement lasts (0 = forever)
-    entryRange = 6,        -- blocks around the detector counted as "at the entrance"
-    casinoRange = 40,      -- blocks around the detector counted as "inside the casino"
+    entryRange = 2,        -- blocks around the detector counted as "at the entrance"
+    casinoRange = 26,      -- blocks around the detector counted as "inside the casino"
     touchRange = 4,        -- a monitor touch counts for the one player within this many blocks
     doorSide = "back",     -- computer side touching the Redstone Link that opens the entrance
     alarmSide = "left",    -- computer side touching the Redstone Link that powers the alarm
-    doorSeconds = 8,       -- how long the door stays open after someone agrees
+    doorSeconds = 2,       -- how long the door stays open after someone agrees
     warnEvery = 15,        -- seconds between warnings to a player who is inside without agreeing
     alarmAfter = 3,        -- warnings before the alarm output turns on
     textScale = 1,
-    admins = {},           -- usernames allowed to use the !tos admin commands and skip the gate
+    admins = {Yeeetiamus_Games},           -- usernames allowed to use the !tos admin commands and skip the gate
 }
 
 local SIDES = {top = true, bottom = true, left = true, right = true, front = true, back = true}
