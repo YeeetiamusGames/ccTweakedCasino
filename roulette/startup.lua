@@ -28,6 +28,39 @@ wheelMonitor.setTextScale(0.5)
 
 local bettingMonitorWidth, bettingMonitorHeight = bettingMonitor.getSize()
 local wheelMonitorWidth, wheelMonitorHeight = wheelMonitor.getSize()
+
+-- FLIP THE BETTING TABLE 180 DEGREES (players standing on the other side of the monitor)
+-- true  = table is rotated half a turn (zeros on the right, 1-2-3 row at the bottom), text stays upright
+-- false = original layout
+local flipBettingTable = true
+
+-- the table fills x = tableMinX..tableMaxX and y = 1..tableMaxY on the betting monitor
+local tableMinX = math.floor(bettingMonitorWidth/2-36)-8
+local tableMaxX = math.floor(bettingMonitorWidth/2-36)+71
+local tableMaxY = 24
+
+-- turns a touch on the (flipped) screen back into the original layout's coordinates
+local function flipTouch(x, y)
+    if not flipBettingTable then return x, y end
+    return tableMinX+tableMaxX-x, tableMaxY+1-y
+end
+
+-- the terminal the table is drawn on: the real monitor, or a rotating wrapper around it
+local bettingTerm = bettingMonitor
+if flipBettingTable then
+    local cx, cy = 1, 1
+    local rotated = {}
+    function rotated.setCursorPos(x, y) cx, cy = math.floor(x), math.floor(y) end
+    function rotated.getCursorPos() return cx, cy end
+    function rotated.write(text)
+        text = tostring(text)
+        bettingMonitor.setCursorPos(tableMinX+tableMaxX-cx-(#text-1), tableMaxY+1-cy)
+        bettingMonitor.write(text)
+        cx = cx+#text
+    end
+    bettingTerm = setmetatable(rotated, {__index = bettingMonitor})
+end
+
 local framerate = 10
 -- payementblock settings
 
@@ -124,7 +157,7 @@ function drawBall(ballRadius, angle, center)
 end
 
 function drawBettingTable() -- a lot of paintutils commands for drawing the betting table
-    term.redirect(bettingMonitor)
+    term.redirect(bettingTerm)
 
     bettingMonitor.setTextScale(0.5)
 
@@ -322,6 +355,9 @@ while true do
             local topLefty = 1
             while true do
                 local event, side, x, y = os.pullEvent("monitor_touch")
+                if side == peripheral.getName(bettingMonitor) then
+                    x, y = flipTouch(x, y)
+                end
                 local bettingSum = 0
                 for key, values in pairs(bets) do
                     bettingSum=bettingSum+values
@@ -458,7 +494,7 @@ while true do
             while true do
                 local topLeftx = bettingMonitorWidth/2-36 -- the top left cornor where the red and black numbers start
                 local topLefty = 1
-                term.redirect(bettingMonitor)
+                term.redirect(bettingTerm)
                 term.setBackgroundColor(colors.blue)
                 for y =0,2 do
                     for x=0,11 do
